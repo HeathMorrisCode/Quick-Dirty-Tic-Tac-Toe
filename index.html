@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Quick & Dirty TicTacToe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+  <div id="app" class="container" style="margin-top:50px;width:600px">
+	
+	<div class="row justify-content-center">
+		<h1>Q&D TTT</h1>
+	</div>
+	<div class="top-row row justify-content-center">
+		<div :class="{ wiping: wipe[1] }" class="square-1 col-1" @click="squareTrigger(1)">
+			<h1 id="display1">{{ squares[1] }}</h1>
+		</div>
+		<div :class="{ wiping: wipe[2] }" class="square-2 col-1" @click="squareTrigger(2)">
+			<h1 id="display2">{{ squares[2] }}</h1>
+		</div>
+		<div :class="{ wiping: wipe[3] }" class="square-3 col-1" @click="squareTrigger(3)">
+			<h1 id="display3">{{ squares[3] }}</h1>
+		</div>
+	</div>
+	<div class="middle-row row justify-content-center">
+		<div :class="{ wiping: wipe[4] }" class="square-4 col-1" @click="squareTrigger(4)">
+			<h1 id="display4">{{ squares[4] }}</h1>
+		</div>
+		<div :class="{ wiping: wipe[5] }" class="square-5 col-1" @click="squareTrigger(5)">
+			<h1 id="display5">{{ squares[5] }}</h1>
+		</div>
+		<div :class="{ wiping: wipe[6] }" class="square-6 col-1" @click="squareTrigger(6)">
+			<h1 id="display6">{{ squares[6] }}</h1>
+		</div>
+	</div>
+	<div class="bottom-row row justify-content-center">
+		<div :class="{ wiping: wipe[7] }" class="square-7 col-1" @click="squareTrigger(7)">
+			<h1 id="display7">{{ squares[7] }}</h1>
+		</div>
+		<div :class="{ wiping: wipe[8] }" class="square-8 col-1" @click="squareTrigger(8)">
+			<h1 id="display8">{{ squares[8] }}</h1>
+		</div>
+		<div :class="{ wiping: wipe[9] }" class="square-9 col-1" @click="squareTrigger(9)">
+			<h1 id="display9">{{ squares[9] }}</h1>
+		</div>
+	</div>
+
+
+</div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js'></script>
+
+    <script src="js/index.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+.square-1 {
+	border-top: black solid 1px;
+	border-left: black solid 1px;
+}
+.square-2 {
+	-border-top: black solid 1px;
+}
+.square-3 {
+	border-top: black solid 1px;
+	border-right: black solid 1px;
+}
+.square-4 {
+	-border-left: black solid 1px;
+}
+.square-5 {
+	-border: black solid 1px;
+}
+.square-6 {
+	-border-right: black solid 1px;
+}
+.square-7 {
+	border-bottom: black solid 1px;
+	border-left: black solid 1px;
+}
+.square-8 {
+	-border-bottom: black solid 1px;
+}
+.square-9 {
+	border-bottom: black solid 1px;
+	border-right: black solid 1px;
+}
+.top-row {
+	height: 50px;
+}
+.middle-row {
+	height: 50px;
+}
+.bottom-row {
+	height: 50px;
+}
+.wiping {
+	background-color:black;
+}

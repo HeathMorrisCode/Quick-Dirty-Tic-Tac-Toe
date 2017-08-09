@@ -1,0 +1,210 @@
+var app = new Vue({
+	el: "#app",
+	data: {
+		test: "lulz",
+		squares: {
+			1: "",
+			2: "",
+			3: "",
+			4: "",
+			5: "",
+			6: "",
+			7: "",
+			8: "",
+			9: ""
+		},
+		wipe: {
+			1: false,
+			2: false,
+			3: false,
+			4: false,
+			5: false,
+			6: false,
+			7: false,
+			8: false,
+			9: false
+		},
+		winConditions: [
+			[1, 2, 3],
+			[4, 5, 6],
+			[7, 8, 9],
+			[1, 4, 7],
+			[2, 5, 8],
+			[3, 6, 9],
+			[1, 5, 9],
+			[3, 5, 7]
+		],
+
+		// startDisabled:false,
+		// pattern: [],
+		// gameLength:10,
+		// userConsole: "Hit start, get to round 10 to win!",
+		// counter: 0,
+		playerTurn: true
+	},
+	methods: {
+		squareTrigger(square) {
+			if (this.playerTurn) {
+				if (this.squares[square] === "") {
+					console.log("Player clicked a square that was open. Square: " + square);
+					this.squares[square] = "X";
+					this.playerTurn = false;
+					if (!this.didHumanWin()) {
+						this.computerTurn();
+					} else {
+						this.restartGame("Human");
+					}
+				} else {
+					console.log("Player clicked a Square that wasn't open. Square: " + square);
+				}
+			} else {
+				console.log(
+					"Player clicked a Square when it wasn't their turn. Square: " + square
+				);
+			}
+		},
+		computerTurn() {
+			// Bad AI starts here
+			let opensquares = [];
+			for (let square in this.squares) {
+				if (this.squares[square] === "") {
+					opensquares.push(square);
+				}
+			}
+			if (opensquares.length) {
+				let random = Math.ceil(Math.random() * opensquares.length) - 1;
+				console.log("Computer picked Square #" + opensquares[random]);
+				console.log("Random num is: " + random);
+				console.log("Open Squares are:" + opensquares);
+				this.squares[opensquares[random]] = "O";
+
+				if (this.didComputerWin()) {
+					this.restartGame("Computer");
+				} else {
+					this.playerTurn = true;
+				}				
+				
+			} else {
+				console.log("That's a draw, Huss");
+				this.restartGame();
+			}
+		},
+		didHumanWin() {
+			// console.log("Start testing for Human Win \n \n \n");
+
+			let humanSquares = [];
+			for (let square in this.squares) {
+				if (this.squares[square] === "X") {
+					humanSquares.push(square);
+				}
+			}
+			// console.log("Human Squares are: " + humanSquares);
+
+			for (let w = 0; w < this.winConditions.length; w++) {
+				// console.log("Current WinCond testing for is: "+ this.winConditions[w]);
+
+				let counter = 0;
+				for (let h = 0; h < humanSquares.length; h++) {
+					// console.log("Current Human Square being tested is: "+ humanSquares[h]);
+					// console.log (this.winConditions[w].indexOf(parseInt(humanSquares[h])));
+
+					if (this.winConditions[w].indexOf(parseInt(humanSquares[h])) != -1) {
+						counter++;
+					}
+				}
+
+				// console.log("Human has " + counter + " out of 3 for this Win Condition");
+
+				if (counter == 3) {
+					console.log("Human Wins!");
+					return true;
+				}
+			}
+
+			// console.log("End testing for Human Win \n \n \n");
+			return false;
+		},
+		didComputerWin() {
+
+			let compSquares = [];
+			for (let square in this.squares) {
+				if (this.squares[square] === "O") {
+					compSquares.push(square);
+				}
+			}
+			// console.log("Human Squares are: " + humanSquares);
+
+			for (let w = 0; w < this.winConditions.length; w++) {
+				// console.log("Current WinCond testing for is: "+ this.winConditions[w]);
+
+				let counter = 0;
+				for (let c = 0; c < compSquares.length; c++) {
+					// console.log("Current Human Square being tested is: "+ humanSquares[h]);
+					// console.log (this.winConditions[w].indexOf(parseInt(humanSquares[h])));
+
+					if (this.winConditions[w].indexOf(parseInt(compSquares[c])) != -1) {
+						counter++;
+					}
+				}
+
+				// console.log("Human has " + counter + " out of 3 for this Win Condition");
+
+				if (counter == 3) {
+					console.log("Computer Wins!");
+					return true;
+				}
+			}
+
+			// console.log("End testing for Human Win \n \n \n");
+			return false;
+		},
+		restartGame(winner) {
+			setTimeout(() => {
+				console.log("Wiping Game Board...");
+
+				let i = 1;
+				let boardWipe = setInterval(() => {
+					
+					
+					if (winner == "Human"){
+						this.squares[i] = "X";
+					}else if(winner == "Computer"){
+						this.squares[i] = "O";
+					}else{
+						console.log("Draw Wipe");
+						this.wipeSquare(i);
+					}
+					
+					
+					
+
+					i++;
+					if (i == 10) {
+						clearInterval(boardWipe);
+						
+						setTimeout(()=> {
+							this.squares[1] = "";
+							this.squares[2] = "";
+							this.squares[3] = "";
+							this.squares[4] = "";
+							this.squares[5] = "";
+							this.squares[6] = "";
+							this.squares[7] = "";
+							this.squares[8] = "";
+							this.squares[9] = "";
+							this.playerTurn = true;
+						},1001);					
+
+					}
+				}, 50);
+			}, 1500);
+		},
+		wipeSquare(square){
+			this.wipe[square] = true;
+			setTimeout(()=> {
+				this.squares[square] = "";
+				this.wipe[square] = false;
+			},100);
+		}
+	}
+});
